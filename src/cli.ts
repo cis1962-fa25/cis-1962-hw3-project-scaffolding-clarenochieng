@@ -14,8 +14,9 @@
  *   1 - Error (invalid pizza, file not found, or invalid JSON)
  */
 
-import { parseArgs } from 'node:util';
 import { readFileSync } from 'node:fs';
+import { parseArgs } from 'node:util';
+
 import { validatePizza } from './validation.js';
 
 /**
@@ -36,7 +37,7 @@ function main(): void {
   });
 
   // Display help message if --help flag is used or no file path is provided
-  if (args.values.help || args.positionals.length === 0) {
+  if (args.values.help === true || args.positionals.length === 0) {
     console.log('usage: pizza-validator <json-file>');
     console.log('validates a JSON file to check if it contains a valid pizza.');
     console.log('\noptions:');
@@ -51,6 +52,7 @@ function main(): void {
     // Read the JSON file synchronously
     const fileContent = readFileSync(filePath, 'utf-8');
     // Parse the JSON content into a JavaScript object
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const jsonData = JSON.parse(fileContent);
 
     // Validate the parsed data as a pizza using the validation function
@@ -84,7 +86,7 @@ function main(): void {
       }
     } else {
       // Fallback for unknown error types
-      console.error(`Unknown error: ${error}`);
+      console.error(`Unknown error: ${String(error)}`);
     }
     process.exit(1);
   }

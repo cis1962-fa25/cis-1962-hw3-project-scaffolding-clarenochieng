@@ -35,17 +35,17 @@ export const PizzaSchema = z.object({
     .refine(
       (toppings) => {
         // If no toppings provided, validation passes
-        if (!toppings) return true;
+        if (toppings === undefined) {
+          return true;
+        }
         // Check if any topping matches an invalid topping (case-insensitive)
         return !toppings.some((topping) =>
-          INVALID_TOPPINGS.includes(
-            topping.toLowerCase() as (typeof INVALID_TOPPINGS)[number]
-          )
+          INVALID_TOPPINGS.includes(topping.toLowerCase() as (typeof INVALID_TOPPINGS)[number]),
         );
       },
       {
         message: `the following toppings are invalid: ${INVALID_TOPPINGS.join(', ')}.`,
-      }
+      },
     ),
 });
 

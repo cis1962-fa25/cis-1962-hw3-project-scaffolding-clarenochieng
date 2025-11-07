@@ -89,11 +89,7 @@ describe('pizza validation', () => {
 
       expect(result.isPizza).toBe(true);
       if (result.isPizza) {
-        expect(result.pizza.toppings).toEqual([
-          'pepperoni',
-          'bacon',
-          'pineapple',
-        ]);
+        expect(result.pizza.toppings).toEqual(['pepperoni', 'bacon', 'pineapple']);
       }
     });
 
@@ -149,9 +145,7 @@ describe('pizza validation', () => {
 
       expect(result.isPizza).toBe(false);
       if (!result.isPizza) {
-        expect(result.errors).toContain(
-          'crust must be either "stuffed" or "normal"'
-        );
+        expect(result.errors).toContain('crust must be either "stuffed" or "normal"');
       }
     });
 
